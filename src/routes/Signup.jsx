@@ -1,25 +1,17 @@
-import {useState} from 'react'
-import { signUp,continueWithGoogle } from '../lib/scripts/auth/auth';
-
+import { useContext } from "react"
+import { AuthContext } from "../App"
+import Loading from "../lib/components/Loading"
+import SignUpComponent from "../lib/components/SignUpComponent"
+import { Navigate } from "react-router-dom"
 const Signup = () => {
-    const [name,setName]= useState("");
-    const [password,setPassword] = useState("");
-
-    const handleSignup = async () =>{
-        if(name && password){
-            await signUp(name,password)
-        }else{
-            console.log("Empty password or username");
-        }
-    }
+  const { user ,loading } = useContext(AuthContext);
   return (
-
+    (
+      loading ? <Loading / > : 
     <>
-     <input type="email" value={name} onChange={(e)=>setName(e.target.value)} placeholder='Name' />
-    <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password'/>
-    <button onClick={handleSignup}>Signup</button>
-    <button onClick={continueWithGoogle}>Continue with Google</button>
+     {user? < Navigate to={"/home"} /> : <SignUpComponent /> }
     </>
+    )
   )
 }
 

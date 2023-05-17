@@ -1,27 +1,16 @@
-import { useState } from "react"
-import { logIn ,continueWithGoogle } from "../lib/scripts/auth/auth";
+import { useContext } from "react"
+import { AuthContext } from "../App"
+import Loading from "../lib/components/Loading"
+import { Navigate } from "react-router-dom"
+import LoginComponent from "../lib/components/LoginComponent"
 const Login = () => {
-    const [name,setName]= useState("");
-    const [password,setPassword] = useState("");
-    const handleLogin =async () =>{
-        try {
-            if(name && password){
-                await logIn(name,password);
-            }else{
-                console.log("No name or password");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+const { user ,loading } = useContext(AuthContext);
 return (
+      loading ? <Loading / > : 
     <>
-    <input type="email" value={name} onChange={(e)=>setName(e.target.value)}  placeholder="Name"/>
-    <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
-    <button onClick={handleLogin}>Login</button>
-    <button onClick={continueWithGoogle}>Continue with Google</button>
+     {user? < Navigate to={"/home"} /> : <LoginComponent /> }
     </>
-  )
+    )
 }
 
 export default Login

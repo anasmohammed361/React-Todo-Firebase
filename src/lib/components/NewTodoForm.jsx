@@ -1,12 +1,16 @@
+import { useContext } from "react";
 import { useState } from "react"
-const NewTodoForm = ({addTodo}) => {
+import { AuthContext } from "../../App";
+import { addTodo } from "../scripts/database/database";
+const NewTodoForm = () => {
+  const { user } = useContext(AuthContext)
   const [title,setTitle] = useState("");
   const [content,setContent] = useState("");
 
   function handleSubmit(e) {
       e.preventDefault();
       if(title,content){
-        addTodo(title,content);
+        addTodo(user.uid,title,content);
         setTitle("");
         setContent("");
       }

@@ -41,4 +41,4 @@ export async function continueWithGoogle() {
     } catch (error) {
         console.log(error);
     }
-}signInWithPopup
+}
